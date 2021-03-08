@@ -35,9 +35,4 @@ public class MoneyTransfer {
     public void errorTransfer() {
         errorMessage.shouldBe(Condition.visible);
     }
-
-//    public DashboardPage CancelTransfer() {
-//        cancelButton.click();
-//        return new DashboardPage();
-//    }
 }
