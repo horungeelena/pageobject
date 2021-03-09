@@ -13,7 +13,8 @@ public class MoneyTransferTest {
   private int amountValid = 5000;
   private int amountInvalid = 100000;
 
-    private DashboardPage shouldEnterDashboardPage() {
+
+  private DashboardPage shouldEnterDashboardPage() {
       open("http://localhost:9999");
       val loginPage = new LoginPage();
       val authInfo = DataHelper.getAuthInfo();
@@ -33,7 +34,7 @@ public class MoneyTransferTest {
   }
 
   @Test
-  void shouldTransferMoneyFromCardTwoToCardTwo() {
+  void shouldTransferMoneyFromCardTwoToCardOne() {
     DashboardPage dashboardPage = shouldEnterDashboardPage();
     dashboardPage.dashboardPageVisible();
     int expected1 = dashboardPage.getBalanceCardTwo() + amountValid;
@@ -44,11 +45,11 @@ public class MoneyTransferTest {
     moneyTransfer.setNumberCardFrom(DataHelper.getCardNumberOne());
     moneyTransfer.doTransfer();
     assertEquals(expected1, dashboardPage.getBalanceCardTwo());
-    assertEquals(expected2, dashboardPage.getBalanceCardTwo());
+    assertEquals(expected2, dashboardPage.getBalanceCardOne());
   }
 
   @Test
-  void shouldTransferMoneyFromCardTwoToCardOne() {
+  void shouldTransferMoneyFromCardOneToCardTwo() {
     DashboardPage dashboardPage = shouldEnterDashboardPage();
     dashboardPage.dashboardPageVisible();
     int expected1 = dashboardPage.getBalanceCardOne() + amountValid;
@@ -69,7 +70,7 @@ public class MoneyTransferTest {
     val moneyTransfer = dashboardPage.topUpCardNumberTwo();
     moneyTransfer.moneyTransferVisible();
     moneyTransfer.setTransferAmount(amountInvalid);
-    moneyTransfer.setNumberCardFrom(DataHelper.getCardNumberTwo());
+    moneyTransfer.setNumberCardFrom(DataHelper.getCardNumberOne());
     moneyTransfer.doTransfer();
     moneyTransfer.errorTransfer();
   }
